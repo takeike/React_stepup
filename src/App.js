@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ChildArea } from "./ChildArea";
 import "./styles.css";
 
@@ -14,17 +14,19 @@ export default function App() {
     return countSet(count + 1);
   };
 
-  const onClickDist = () => {
+  const onClickOpen = () => {
     setOpen(!open);
   };
+
+  const onClickClose = useCallback(() => setOpen(false), [setOpen]);
 
   return (
     <div className="App">
       <input value={text} onChange={onChangeText} />
       <br />
       <br />
-      <button onClick={onClickDist}>表示</button>
-      <ChildArea open={open} />
+      <button onClick={onClickOpen}>表示</button>
+      <ChildArea open={open} onClickClose={onClickClose} />
     </div>
   );
 }
